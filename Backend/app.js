@@ -3,6 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
+import userRouter from "./Routes/userRouter.js";
+import jobRouter from "./Routes/jobRouter.js";
+import applicationRouter from "./Routes/applicationRouter.js";
+import { dbConnection } from "./database/dbConnection.js";
+import { errorMiddleware } from "./middlewares/error.js";
 const app = express();
 dotenv.config({ path: "./config/config.env" });
 
@@ -23,4 +28,13 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
+
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/application", applicationRouter);
+
+dbConnection();
+
+app.use(errorMiddleware);
+
 export default app;
