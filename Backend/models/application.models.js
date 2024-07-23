@@ -30,27 +30,24 @@ const application = new mongoose.Schema(
         required: true,
       },
     },
-    applicantId: {
+    applicantID: {
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
       },
-
       role: {
         type: String,
         enum: ["Job Seeker"],
         required: true,
       },
     },
-
-    emplpoyerId: {
+    employerID: {
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
       },
-
       role: {
         type: String,
         enum: ["Employer"],

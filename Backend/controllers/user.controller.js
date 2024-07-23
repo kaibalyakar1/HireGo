@@ -76,3 +76,25 @@ export const logout = catchAsyncError(async (req, res, next) => {
       message: "Logged out successfully",
     });
 });
+
+export const getAllUsers = catchAsyncError(async (req, res, next) => {
+  const { role } = req.user;
+  if (role === "Job Seeker") {
+    return next(
+      new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
+    );
+  }
+  const users = await User.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+export const getProfile = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
